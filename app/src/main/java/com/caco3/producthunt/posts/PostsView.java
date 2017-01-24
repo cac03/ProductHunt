@@ -9,8 +9,8 @@ import java.util.List;
 public interface PostsView extends BaseView {
   void showRefreshLayout();
   void hideRefreshLayout();
-  void showUnableLoadCategoriesDueNetworkIssuesError();
-  void showUnableLoadCategoriesDueRequestLimitError();
+  void showUnableLoadPostsDueNetworkIssuesError();
+  void showUnableLoadPostsDueRequestLimitError();
   void showPosts(List<ProductHuntPost> posts);
   void navigateToPostView(ProductHuntPost post);
 }
