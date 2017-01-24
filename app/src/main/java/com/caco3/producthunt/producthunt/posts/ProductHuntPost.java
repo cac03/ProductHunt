@@ -53,6 +53,9 @@ public class ProductHuntPost {
   @SerializedName("votes_count")
   @Expose
   private int votesCount;
+  @SerializedName("tagline")
+  @Expose
+  private String tagline;
   /** Used to resolve relations */
   @Generated(hash = 2040040024)
   private transient DaoSession daoSession;
@@ -60,20 +63,21 @@ public class ProductHuntPost {
   @Generated(hash = 1095922276)
   private transient ProductHuntPostDao myDao;
 
-  @Generated(hash = 816309094)
-  public ProductHuntPost(Long id, long categoryId, int postId, String name,
-          String discussionUrl, String redirectUrl, Screenshot screenshot, int votesCount) {
-      this.id = id;
-      this.categoryId = categoryId;
-      this.postId = postId;
-      this.name = name;
-      this.discussionUrl = discussionUrl;
-      this.redirectUrl = redirectUrl;
-      this.screenshot = screenshot;
-      this.votesCount = votesCount;
-  }
+  @Generated(hash = 2013786902)
+public ProductHuntPost(Long id, long categoryId, int postId, String name, String discussionUrl,
+        String redirectUrl, Screenshot screenshot, int votesCount, String tagline) {
+    this.id = id;
+    this.categoryId = categoryId;
+    this.postId = postId;
+    this.name = name;
+    this.discussionUrl = discussionUrl;
+    this.redirectUrl = redirectUrl;
+    this.screenshot = screenshot;
+    this.votesCount = votesCount;
+    this.tagline = tagline;
+}
 
-  @Generated(hash = 52185221)
+@Generated(hash = 52185221)
   public ProductHuntPost() {
   }
 
@@ -215,6 +219,14 @@ public class ProductHuntPost {
       this.daoSession = daoSession;
       myDao = daoSession != null ? daoSession.getProductHuntPostDao() : null;
   }
+
+public String getTagline() {
+    return this.tagline;
+}
+
+public void setTagline(String tagline) {
+    this.tagline = tagline;
+}
 
   /**
    * Unfortunately GreenDao supports only single FK key per entity
