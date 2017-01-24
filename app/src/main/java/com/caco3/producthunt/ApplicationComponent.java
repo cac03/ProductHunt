@@ -22,4 +22,5 @@ import dagger.Component;
 )
 @Singleton
 public interface ApplicationComponent {
+  CategoriesComponent plus(CategoriesModule categoriesModule);
 }

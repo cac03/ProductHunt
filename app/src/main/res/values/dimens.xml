@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="category_item_height">160dp</dimen>
+</resources>
