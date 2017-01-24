@@ -26,7 +26,7 @@ public class ProductHuntPostParseTest {
 
   @Test
   public void thumbnailParsedCorrectly() {
-    Thumbnail thumbnail = testablePost.getThumbnail();
+    Thumbnail thumbnail = testablePost.peakThumbnail();
     assertThat(thumbnail.getImageUrl())
             .isEqualTo("https://ph-files.imgix.net/e0164779-b476-4ba9-8a64-93463ba32491?auto=format&amp;fit=crop&amp;h=570&amp;w=430");
     assertThat(thumbnail.getMediaType())
