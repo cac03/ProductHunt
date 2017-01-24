@@ -1,5 +1,6 @@
 package com.caco3.producthunt.producthunt.category;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 
   private static class CategoriesResponse {
     @SerializedName("categories")
+    @Expose
     List<ProductHuntCategory> categories;
   }
 }
