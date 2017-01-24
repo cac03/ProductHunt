@@ -46,4 +46,6 @@ dependencies {
     // rx
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
+    // mockito
+    testCompile "org.mockito:mockito-core:2.5.3"
 }
