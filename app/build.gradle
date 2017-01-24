@@ -43,4 +43,7 @@ dependencies {
     testCompile 'com.squareup.okhttp3:mockwebserver:3.3.0'
     // greenDao
     compile 'org.greenrobot:greendao:3.2.0'
+    // rx
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
 }
