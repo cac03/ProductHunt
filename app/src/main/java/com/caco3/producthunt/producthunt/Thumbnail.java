@@ -1,13 +1,17 @@
 package com.caco3.producthunt.producthunt;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Thumbnail {
   @SerializedName("id")
+  @Expose
   private long thumbnailId;
   @SerializedName("media_type")
+  @Expose
   private String mediaType;
   @SerializedName("image_url")
+  @Expose
   private String imageUrl;
 
   public long getThumbnailId() {
