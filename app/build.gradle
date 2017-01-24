@@ -34,4 +34,6 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     // timber
     compile 'com.jakewharton.timber:timber:4.5.1'
+    testCompile 'org.assertj:assertj-core:3.6.2'
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.3.0'
 }
