@@ -3,14 +3,10 @@ package com.caco3.producthunt.producthunt;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
+import java.io.Serializable;
 
-@Entity
-public class Thumbnail {
-  @Id
-  private Long id;
+
+public class Thumbnail implements Serializable {
   @SerializedName("id")
   @Expose
   private long thumbnailId;
@@ -21,17 +17,7 @@ public class Thumbnail {
   @Expose
   private String imageUrl;
 
-  @Generated(hash = 1300960851)
-  public Thumbnail(Long id, long thumbnailId, String mediaType, String imageUrl) {
-      this.id = id;
-      this.thumbnailId = thumbnailId;
-      this.mediaType = mediaType;
-      this.imageUrl = imageUrl;
-  }
-
-  @Generated(hash = 248300619)
-  public Thumbnail() {
-  }
+  private static final long serialVersionUID = 897987465131346L;
 
   public long getThumbnailId() {
     return thumbnailId;
@@ -55,13 +41,5 @@ public class Thumbnail {
 
   public void setImageUrl(String imageUrl) {
       this.imageUrl = imageUrl;
-  }
-
-  public Long getId() {
-      return this.id;
-  }
-
-  public void setId(Long id) {
-      this.id = id;
   }
 }
