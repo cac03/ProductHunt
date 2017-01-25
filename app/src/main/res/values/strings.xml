@@ -4,4 +4,7 @@
     <!-- categories -->
     <string name="unable_to_load_categories_network_error">Unable to load categories. Check your connection</string>
     <string name="unable_to_load_categories_request_limit">Unable to load categories. Try again later</string>
+
+    <!-- posts -->
+    <string name="post_thumbnail_content_description">Post thumbnail</string>
 </resources>

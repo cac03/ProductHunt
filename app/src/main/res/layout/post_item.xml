@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/post_item_thumbnail"
+        android:contentDescription="@string/post_thumbnail_content_description"
+        android:layout_width="@dimen/post_item_thumbnail_width"
+        android:layout_height="@dimen/post_item_thumbnail_height"
+        android:layout_centerVertical="true"
+        tools:src="@color/colorPrimaryDark"/>
+
+    <RelativeLayout
+        android:layout_toEndOf="@id/post_item_thumbnail"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_padding">
+
+        <LinearLayout
+            android:id="@+id/post_item_info_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/post_item_votes_count"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/post_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                tools:text="Item name"/>
+
+            <TextView
+                android:id="@+id/post_item_tagline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Item tagline"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/post_item_votes_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:drawableStart="@drawable/ic_upvote"
+            android:gravity="center"
+            tools:text="1234"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
