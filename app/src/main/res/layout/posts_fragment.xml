@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/posts_frag_refresh_layout"
+    android:background="@color/gray200"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.caco3.producthunt.ui.widget.AutoFitRecyclerView
+        android:id="@+id/posts_frag_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="@dimen/post_item_min_width" />
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
