@@ -43,7 +43,7 @@ public class ProductHuntPost {
   private String redirectUrl;
   @SerializedName("screenshot_url")
   @Expose
-  @Convert(converter = ScreenshotConverter.class, columnType = String.class)
+  @Convert(converter = ScreenshotConverter.class, columnType = byte[].class)
   /**@see ScreenshotConverter */
   private Screenshot screenshot;
   @SerializedName("thumbnail")
@@ -231,11 +231,11 @@ public void setTagline(String tagline) {
   /**
    * Unfortunately GreenDao supports only single FK key per entity
    */
-  static class ScreenshotConverter implements PropertyConverter<Screenshot, String> {
+  static class ScreenshotConverter implements PropertyConverter<Screenshot, byte[]> {
     @Override
-    public Screenshot convertToEntityProperty(String databaseValue) {
+    public Screenshot convertToEntityProperty(byte[] databaseValue) {
       try (ByteArrayInputStream byteArrayInputStream
-                   = new ByteArrayInputStream(databaseValue.getBytes());
+                   = new ByteArrayInputStream(databaseValue);
         ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream)) {
         return (Screenshot)ois.readObject();
       } catch (ClassNotFoundException | IOException rethrow) {
@@ -244,10 +244,11 @@ public void setTagline(String tagline) {
     }
 
     @Override
-    public String convertToDatabaseValue(Screenshot entityProperty) {
+    public byte[] convertToDatabaseValue(Screenshot entityProperty) {
       try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
            ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream)) {
-        return byteArrayOutputStream.toString();
+        oos.writeObject(entityProperty);
+        return byteArrayOutputStream.toByteArray();
       } catch (IOException rethrow) {
         throw new RuntimeException(rethrow);
       }
