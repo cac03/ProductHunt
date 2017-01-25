@@ -16,6 +16,11 @@ public class Screenshot implements Serializable {
 
   private static final long serialVersionUID = 7987465465113213456L;
 
+  Screenshot(String url300px, String url850px) {
+    this.url300px = url300px;
+    this.url850px = url850px;
+  }
+
   public String getUrl300px() {
     return url300px;
   }
