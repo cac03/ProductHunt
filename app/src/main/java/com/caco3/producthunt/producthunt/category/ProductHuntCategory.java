@@ -7,8 +7,10 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
+
 @Entity
-public class ProductHuntCategory {
+public class ProductHuntCategory implements Serializable {
   @Id
   private Long id;
   @SerializedName("id")
@@ -26,6 +28,8 @@ public class ProductHuntCategory {
   @SerializedName("item_name")
   @Expose
   private String itemName;
+
+  private static final long serialVersionUID = 8794565489798797L;
 
   @Generated(hash = 106304847)
   public ProductHuntCategory(Long id, long categoryId, String slug, String name,
@@ -88,5 +92,30 @@ public class ProductHuntCategory {
 
   public void setItemName(String itemName) {
       this.itemName = itemName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ProductHuntCategory that = (ProductHuntCategory) o;
+
+    if (categoryId != that.categoryId) return false;
+    if (slug != null ? !slug.equals(that.slug) : that.slug != null) return false;
+    if (name != null ? !name.equals(that.name) : that.name != null) return false;
+    if (color != null ? !color.equals(that.color) : that.color != null) return false;
+    return itemName != null ? itemName.equals(that.itemName) : that.itemName == null;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = (int) (categoryId ^ (categoryId >>> 32));
+    result = 31 * result + (slug != null ? slug.hashCode() : 0);
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (color != null ? color.hashCode() : 0);
+    result = 31 * result + (itemName != null ? itemName.hashCode() : 0);
+    return result;
   }
 }
