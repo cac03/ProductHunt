@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.caco3.producthunt.data.categories.CategoriesRepository;
 import com.caco3.producthunt.data.categories.CategoriesRepositoryImpl;
+import com.caco3.producthunt.data.posts.PostsRepository;
+import com.caco3.producthunt.data.posts.PostsRepositoryImpl;
 import com.caco3.producthunt.producthunt.category.DaoMaster;
 import com.caco3.producthunt.producthunt.category.DaoSession;
 
@@ -18,10 +20,12 @@ import dagger.Provides;
 public class DataModule {
   private static final String DATABASE_NAME = "ph.db";
   private final CategoriesRepository categoriesRepository;
+  private final PostsRepository postsRepository;
 
   public DataModule(Context context) {
     DaoSession daoSession = createDaoSession(context);
     this.categoriesRepository = new CategoriesRepositoryImpl(daoSession.getProductHuntCategoryDao());
+    this.postsRepository = new PostsRepositoryImpl(daoSession.getProductHuntPostDao());
   }
 
   private DaoSession createDaoSession(Context context) {
@@ -34,5 +38,11 @@ public class DataModule {
   @Singleton
   public CategoriesRepository provideCategoriesRepository() {
     return categoriesRepository;
+  }
+
+  @Provides
+  @Singleton
+  public PostsRepository providePostsRepository() {
+    return postsRepository;
   }
 }

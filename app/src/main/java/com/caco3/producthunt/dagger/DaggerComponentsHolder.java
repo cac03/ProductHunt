@@ -10,12 +10,21 @@ import com.caco3.producthunt.categories.CategoriesComponent;
 import com.caco3.producthunt.categories.CategoriesModule;
 import com.caco3.producthunt.data.DataModule;
 import com.caco3.producthunt.network.NetworkModule;
+import com.caco3.producthunt.posts.PostsComponent;
+import com.caco3.producthunt.posts.PostsModule;
 import com.caco3.producthunt.producthunt.ProductHuntModule;
+import com.caco3.producthunt.producthunt.category.ProductHuntCategory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.caco3.producthunt.util.Preconditions.checkState;
 
 public class DaggerComponentsHolder {
   private static final DaggerComponentsHolder instance = new DaggerComponentsHolder();
   private ApplicationComponent applicationComponent;
   private CategoriesComponent categoriesComponent;
+  private final Map<ProductHuntCategory, PostsComponent> postsComponents = new HashMap<>();
 
   public static DaggerComponentsHolder getInstance() {
     return instance;
@@ -43,5 +52,27 @@ public class DaggerComponentsHolder {
 
   public void releaseCategoriesComponent() {
     categoriesComponent = null;
+  }
+
+  public PostsComponent getPostsComponent(ProductHuntCategory category) {
+    PostsComponent component;
+    if (!postsComponents.containsKey(category)) {
+      component = applicationComponent.plus(new PostsModule(category));
+      postsComponents.put(category, component);
+    } else {
+      component = postsComponents.get(category);
+    }
+
+    return component;
+  }
+
+  public void releasePostsComponent(ProductHuntCategory category) {
+    checkState(postsComponents.containsKey(category),
+            String.format("Attempt to release posts component that was not created (category: %s)", category));
+    postsComponents.remove(category);
+  }
+
+  public void releasePostsComponents() {
+    postsComponents.clear();
   }
 }

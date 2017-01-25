@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.caco3.producthunt.R;
 import com.caco3.producthunt.dagger.DaggerComponentsHolder;
+import com.caco3.producthunt.posts.PostsActivity;
 import com.caco3.producthunt.producthunt.category.ProductHuntCategory;
 import com.caco3.producthunt.ui.recyclerview.itemdecorator.MarginItemDecorator;
 
@@ -105,9 +106,7 @@ public class CategoriesFragment extends Fragment
 
   @Override
   public void navigateToCategoryView(ProductHuntCategory category) {
-    Toast.makeText(getContext(), String.format("Navigating to %s", category.getName()),
-            Toast.LENGTH_SHORT).show();
-    // TODO: 1/24/17 implement
+    startActivity(PostsActivity.forCategory(getContext(), category));
   }
 
   @Override

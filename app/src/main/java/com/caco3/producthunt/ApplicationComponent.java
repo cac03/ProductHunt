@@ -5,6 +5,8 @@ import com.caco3.producthunt.categories.CategoriesComponent;
 import com.caco3.producthunt.categories.CategoriesModule;
 import com.caco3.producthunt.data.DataModule;
 import com.caco3.producthunt.network.NetworkModule;
+import com.caco3.producthunt.posts.PostsComponent;
+import com.caco3.producthunt.posts.PostsModule;
 import com.caco3.producthunt.producthunt.ProductHuntModule;
 
 import javax.inject.Singleton;
@@ -23,4 +25,5 @@ import dagger.Component;
 @Singleton
 public interface ApplicationComponent {
   CategoriesComponent plus(CategoriesModule categoriesModule);
+  PostsComponent plus(PostsModule postsModule);
 }
