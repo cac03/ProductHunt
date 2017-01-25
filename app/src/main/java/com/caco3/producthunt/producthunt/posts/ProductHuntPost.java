@@ -16,10 +16,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
-public class ProductHuntPost {
+public class ProductHuntPost implements Serializable {
   @Id
   private Long id;
   @SerializedName("category_id")
@@ -53,6 +55,9 @@ public class ProductHuntPost {
   @SerializedName("tagline")
   @Expose
   private String tagline;
+
+  private static final long serialVersionUID = 89798765453131L;
+
   @Generated(hash = 203018294)
   public ProductHuntPost(Long id, long categoryId, int postId, String name, String discussionUrl,
           String redirectUrl, Screenshot screenshot, Thumbnail thumbnail, int votesCount,

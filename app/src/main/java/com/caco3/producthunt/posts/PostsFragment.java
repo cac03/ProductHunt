@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.caco3.producthunt.R;
 import com.caco3.producthunt.dagger.DaggerComponentsHolder;
+import com.caco3.producthunt.post.PostActivity;
 import com.caco3.producthunt.producthunt.category.ProductHuntCategory;
 import com.caco3.producthunt.producthunt.posts.ProductHuntPost;
 import com.caco3.producthunt.ui.recyclerview.itemdecorator.MarginItemDecorator;
@@ -136,8 +137,7 @@ public class PostsFragment extends Fragment
 
   @Override
   public void navigateToPostView(ProductHuntPost post) {
-    Toast.makeText(getContext(), String.format("Navigating to post: %s", post.getName()), Toast.LENGTH_SHORT).show();
-    // TODO: 1/25/17 implement
+    startActivity(PostActivity.forProductHuntPost(getContext(), post));
   }
 
   @Override

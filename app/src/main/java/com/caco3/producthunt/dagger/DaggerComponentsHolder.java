@@ -10,10 +10,13 @@ import com.caco3.producthunt.categories.CategoriesComponent;
 import com.caco3.producthunt.categories.CategoriesModule;
 import com.caco3.producthunt.data.DataModule;
 import com.caco3.producthunt.network.NetworkModule;
+import com.caco3.producthunt.post.PostComponent;
+import com.caco3.producthunt.post.PostModule;
 import com.caco3.producthunt.posts.PostsComponent;
 import com.caco3.producthunt.posts.PostsModule;
 import com.caco3.producthunt.producthunt.ProductHuntModule;
 import com.caco3.producthunt.producthunt.category.ProductHuntCategory;
+import com.caco3.producthunt.producthunt.posts.ProductHuntPost;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +28,7 @@ public class DaggerComponentsHolder {
   private ApplicationComponent applicationComponent;
   private CategoriesComponent categoriesComponent;
   private final Map<ProductHuntCategory, PostsComponent> postsComponents = new HashMap<>();
+  private PostComponent postComponent;
 
   public static DaggerComponentsHolder getInstance() {
     return instance;
@@ -74,5 +78,17 @@ public class DaggerComponentsHolder {
 
   public void releasePostsComponents() {
     postsComponents.clear();
+  }
+
+  public PostComponent getPostComponent(ProductHuntPost productHuntPost) {
+    if (postComponent == null) {
+      postComponent = applicationComponent.plus(new PostModule(productHuntPost));
+    }
+
+    return postComponent;
+  }
+
+  public void releasePostComponent() {
+    postComponent = null;
   }
 }
