@@ -88,7 +88,7 @@ public class PostFragment extends Fragment implements PostView {
 
   @Override
   public void openPostProductSite(ProductHuntPost post) {
-    startActivity(WebViewActivity.forUrl(post.getRedirectUrl()));
+    startActivity(WebViewActivity.forUrl(getContext(), post.getRedirectUrl()));
   }
 
   @OnClick(R.id.post_frag_get_it_btn)
