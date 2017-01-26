@@ -18,8 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".posts.PostsActivity" />
-        <activity android:name=".post.PostActivity" />
+        <activity android:name=".posts.PostsActivity"
+            android:parentActivityName=".categories.CategoriesActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".post.PostActivity"
+            android:parentActivityName=".posts.PostsActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

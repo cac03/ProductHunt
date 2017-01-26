@@ -44,4 +44,9 @@ public class PostActivity extends BaseActivity {
             .replace(R.id.activity_base_fragment_container, fragment, FRAGMENT_TAG)
             .commitNow();
   }
+
+  @Override
+  protected boolean hasParentActivity() {
+    return true;
+  }
 }
