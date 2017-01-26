@@ -10,5 +10,6 @@ public interface BaseRepository<T> {
   void update(T entity);
   void updateAll(Iterable<T> entities);
   void remove(T entity);
+  void removeAll(Iterable<T> entities);
   void removeAll();
 }

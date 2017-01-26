@@ -8,9 +8,6 @@ import java.util.List;
 
 import static com.caco3.producthunt.util.Preconditions.checkNotNull;
 
-/**
- * Created by caco3 on 1/24/17.
- */
 
 public class PostsRepositoryImpl implements PostsRepository {
   private final ProductHuntPostDao dao;
@@ -65,5 +62,10 @@ public class PostsRepositoryImpl implements PostsRepository {
   public void removeAllByCategory(ProductHuntCategory category) {
     dao.queryBuilder().where(ProductHuntPostDao.Properties.CategoryId.eq(category.getCategoryId()))
             .buildDelete().executeDeleteWithoutDetachingEntities();
+  }
+
+  @Override
+  public void removeAll(Iterable<ProductHuntPost> entities) {
+    dao.deleteInTx(entities);
   }
 }

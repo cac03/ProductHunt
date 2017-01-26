@@ -49,4 +49,9 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
   public void removeAll() {
     dao.deleteAll();
   }
+
+  @Override
+  public void removeAll(Iterable<ProductHuntCategory> entities) {
+    dao.deleteInTx(entities);
+  }
 }
