@@ -13,7 +13,7 @@ import timber.log.Timber;
 
 public class ProductHuntApp extends Application {
   private static final String FIRST_RUN_KEY = "first_run";
-  static final long CATEGORIES_AND_POSTS_AUTO_UPDATE_INTERVAL
+  public static final long CATEGORIES_AND_POSTS_AUTO_UPDATE_INTERVAL
           = TimeUnit.HOURS.toMillis(1);
 
   @Override
