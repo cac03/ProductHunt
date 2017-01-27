@@ -1,5 +1,6 @@
 package com.caco3.producthunt.posts;
 
+import com.caco3.producthunt.data.categories.CategoriesRepository;
 import com.caco3.producthunt.data.posts.PostsRepository;
 import com.caco3.producthunt.producthunt.ProductHunt;
 import com.caco3.producthunt.producthunt.category.ProductHuntCategory;
@@ -26,7 +27,8 @@ public class PostsModule {
   @Provides
   @PostsScope
   PostsPresenter providePostsPresenter(ProductHuntCategory category,
-                                              PostsRepository repository, ProductHunt productHunt) {
-    return new PostsPresenterImpl(category, repository, productHunt);
+                                       PostsRepository repository, ProductHunt productHunt,
+                                       CategoriesRepository categoriesRepository) {
+    return new PostsPresenterImpl(category, repository, productHunt, categoriesRepository);
   }
 }

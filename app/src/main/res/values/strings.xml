@@ -10,6 +10,8 @@
     <string name="post_thumbnail_content_description">Post thumbnail</string>
     <string name="unable_to_load_posts_network_error">Unable to load posts. Check your connection</string>
     <string name="unable_to_load_posts_requests_limit">Unable to load posts. Try agail later</string>
+    <string name="turn_on_notifications">Turn on notifications</string>
+    <string name="turn_off_notifications">Turn off notifications</string>
 
     <!-- post -->
     <string name="get_it_btn_label">Get it</string>

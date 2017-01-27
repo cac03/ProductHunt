@@ -1,6 +1,7 @@
 package com.caco3.producthunt.posts;
 
 
+import com.caco3.producthunt.data.categories.CategoriesRepository;
 import com.caco3.producthunt.data.posts.PostsRepository;
 import com.caco3.producthunt.producthunt.ProductHunt;
 import com.caco3.producthunt.producthunt.TooManyRequestsException;
@@ -26,13 +27,16 @@ class PostsPresenterImpl implements PostsPresenter {
   private ProductHuntCategory category;
   private PostsRepository postsRepository;
   private ProductHunt productHunt;
+  private CategoriesRepository categoriesRepository;
   Subscriber<List<ProductHuntPost>> postsSubscriber;
 
   PostsPresenterImpl(ProductHuntCategory category,
-                            PostsRepository repository, ProductHunt productHunt) {
+                     PostsRepository repository, ProductHunt productHunt,
+                     CategoriesRepository categoriesRepository) {
     this.category = checkNotNull(category, "category == null");
     this.postsRepository = checkNotNull(repository, "repository == null");
     this.productHunt = checkNotNull(productHunt, "productHunt == null");
+    this.categoriesRepository = checkNotNull(categoriesRepository, "categoriesRepository == null");
   }
 
   @Override
@@ -46,6 +50,11 @@ class PostsPresenterImpl implements PostsPresenter {
       loadPostsFromRepositoryToView();
       if (arePostsLoadingFromProductHunt()) {
         view.showRefreshLayout();
+      }
+      if (category.getNotificationsEnabled()) {
+        view.showDisableNotificationsButton();
+      } else {
+        view.showEnableNotificationsButton();
       }
     }
   }
@@ -138,6 +147,20 @@ class PostsPresenterImpl implements PostsPresenter {
       if (isViewAttached()) {
         view.hideRefreshLayout();
         view.showPosts(posts);
+      }
+    }
+  }
+
+  @Override
+  public void toggleNotificationsEnabledSetting() {
+    boolean enabled = category.getNotificationsEnabled();
+    category.setNotificationsEnabled(!enabled);
+    categoriesRepository.update(category);
+    if (isViewAttached()) {
+      if (!enabled) {
+        view.showDisableNotificationsButton();
+      } else {
+        view.showEnableNotificationsButton();
       }
     }
   }

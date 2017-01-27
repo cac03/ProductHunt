@@ -32,7 +32,7 @@ public class CategoryPostsUpdatedNotificationListener implements CategoryPostsUp
 
   @Override
   public void onPostsUpdated(ProductHuntCategory category, List<ProductHuntPost> newPosts) {
-    if (newPosts.isEmpty()){
+    if (newPosts.isEmpty() || !category.getNotificationsEnabled()){
       return;
     }
     fireNotification(category, new NotificationCompat.Builder(context)

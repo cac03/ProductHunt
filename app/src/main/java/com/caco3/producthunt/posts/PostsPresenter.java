@@ -7,4 +7,5 @@ import com.caco3.producthunt.producthunt.posts.ProductHuntPost;
 public interface PostsPresenter extends BasePresenter<PostsView> {
   void onRefreshRequest();
   void onPostSelected(ProductHuntPost post);
+  void toggleNotificationsEnabledSetting();
 }

@@ -13,4 +13,6 @@ public interface PostsView extends BaseView {
   void showUnableLoadPostsDueRequestLimitError();
   void showPosts(List<ProductHuntPost> posts);
   void navigateToPostView(ProductHuntPost post);
+  void showEnableNotificationsButton();
+  void showDisableNotificationsButton();
 }

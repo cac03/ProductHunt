@@ -28,18 +28,20 @@ public class ProductHuntCategory implements Serializable {
   @SerializedName("item_name")
   @Expose
   private String itemName;
+  private boolean notificationsEnabled;
 
   private static final long serialVersionUID = 8794565489798797L;
 
-  @Generated(hash = 106304847)
+  @Generated(hash = 1388592102)
   public ProductHuntCategory(Long id, long categoryId, String slug, String name,
-          String color, String itemName) {
+          String color, String itemName, boolean notificationsEnabled) {
       this.id = id;
       this.categoryId = categoryId;
       this.slug = slug;
       this.name = name;
       this.color = color;
       this.itemName = itemName;
+      this.notificationsEnabled = notificationsEnabled;
   }
 
   @Generated(hash = 257751680)
@@ -117,5 +119,13 @@ public class ProductHuntCategory implements Serializable {
     result = 31 * result + (color != null ? color.hashCode() : 0);
     result = 31 * result + (itemName != null ? itemName.hashCode() : 0);
     return result;
+  }
+
+  public boolean getNotificationsEnabled() {
+      return this.notificationsEnabled;
+  }
+
+  public void setNotificationsEnabled(boolean notificationsEnabled) {
+      this.notificationsEnabled = notificationsEnabled;
   }
 }

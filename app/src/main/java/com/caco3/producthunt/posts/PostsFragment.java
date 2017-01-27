@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -37,6 +40,7 @@ public class PostsFragment extends Fragment
     }
   };
   private final PostsAdapter adapter = new PostsAdapter(this, postComparator);
+  private boolean notificationsEnabled;
   @Inject
   PostsPresenter presenter;
   @BindView(R.id.posts_frag_refresh_layout)
@@ -51,6 +55,37 @@ public class PostsFragment extends Fragment
     PostsFragment fragment = new PostsFragment();
     fragment.setArguments(args);
     return fragment;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+  }
+
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.posts_menu, menu);
+    MenuItem notificationsEnabledItem = menu.findItem(R.id.posts_toggle_notifications);
+    if (notificationsEnabled) {
+      notificationsEnabledItem.setTitle(R.string.turn_off_notifications);
+      notificationsEnabledItem.setIcon(R.drawable.ic_turn_off_notifications);
+    } else {
+      notificationsEnabledItem.setTitle(R.string.turn_on_notifications);
+      notificationsEnabledItem.setIcon(R.drawable.ic_turn_on_notifications);
+    }
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    if (id == R.id.posts_toggle_notifications) {
+      presenter.toggleNotificationsEnabledSetting();
+      return true;
+    } else {
+      return super.onOptionsItemSelected(item);
+    }
   }
 
   @Override
@@ -143,5 +178,17 @@ public class PostsFragment extends Fragment
   @Override
   public void onPostClicked(ProductHuntPost post) {
     presenter.onPostSelected(post);
+  }
+
+  @Override
+  public void showDisableNotificationsButton() {
+    notificationsEnabled = true;
+    getActivity().invalidateOptionsMenu();
+  }
+
+  @Override
+  public void showEnableNotificationsButton() {
+    notificationsEnabled = false;
+    getActivity().invalidateOptionsMenu();
   }
 }
