@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.caco3.producthunt.R;
 import com.caco3.producthunt.dagger.DaggerComponentsHolder;
@@ -27,6 +28,12 @@ public class PostFragment extends Fragment implements PostView {
   private static final String POST_ARG_KEY = "post";
   @BindView(R.id.post_frag_screenshot)
   ImageView screenshot;
+  @BindView(R.id.post_frag_post_title)
+  TextView title;
+  @BindView(R.id.post_frag_post_description)
+  TextView description;
+  @BindView(R.id.post_frag_post_votes_count)
+  TextView upvotesCount;
   @Inject
   PostPresenter presenter;
 
@@ -84,6 +91,9 @@ public class PostFragment extends Fragment implements PostView {
             .centerCrop()
             .fit()
             .into(screenshot);
+    title.setText(post.getName());
+    description.setText(post.getTagline());
+    upvotesCount.setText(post.getVotesCount() + "");
   }
 
   @Override
