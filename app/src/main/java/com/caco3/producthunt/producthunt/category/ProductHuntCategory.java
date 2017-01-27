@@ -28,7 +28,7 @@ public class ProductHuntCategory implements Serializable {
   @SerializedName("item_name")
   @Expose
   private String itemName;
-  private boolean notificationsEnabled;
+  private boolean notificationsEnabled = true;
 
   private static final long serialVersionUID = 8794565489798797L;
 
