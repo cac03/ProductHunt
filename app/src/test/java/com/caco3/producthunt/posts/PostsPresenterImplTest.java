@@ -1,6 +1,7 @@
 package com.caco3.producthunt.posts;
 
 
+import com.caco3.producthunt.data.categories.CategoriesRepository;
 import com.caco3.producthunt.data.posts.PostsRepository;
 import com.caco3.producthunt.producthunt.ProductHunt;
 import com.caco3.producthunt.producthunt.TooManyRequestsException;
@@ -39,6 +40,8 @@ public class PostsPresenterImplTest {
   private PostsView view;
   @Mock
   private ProductHuntCategory dummyCategory;
+  @Mock
+  private CategoriesRepository categoriesRepository;
   @Rule
   public RxSchedulersRule rxSchedulersRule = new RxSchedulersRule();
   private PostsPresenterImpl presenter;
@@ -49,7 +52,8 @@ public class PostsPresenterImplTest {
   public void setUp() {
     MockitoAnnotations.initMocks(this);
     when(productHunt.posts()).thenReturn(postsService);
-    presenter = new PostsPresenterImpl(dummyCategory, postsRepository, productHunt);
+    presenter = new PostsPresenterImpl(dummyCategory, postsRepository, productHunt,
+            categoriesRepository);
   }
 
   @Test
