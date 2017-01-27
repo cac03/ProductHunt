@@ -1,6 +1,8 @@
 package com.caco3.producthunt;
 
 import com.caco3.producthunt.appuser.AppUserModule;
+import com.caco3.producthunt.autoupdate.AutoUpdateComponent;
+import com.caco3.producthunt.autoupdate.AutoUpdateModule;
 import com.caco3.producthunt.categories.CategoriesComponent;
 import com.caco3.producthunt.categories.CategoriesModule;
 import com.caco3.producthunt.data.DataModule;
@@ -29,4 +31,5 @@ public interface ApplicationComponent {
   CategoriesComponent plus(CategoriesModule categoriesModule);
   PostsComponent plus(PostsModule postsModule);
   PostComponent plus(PostModule postModule);
+  AutoUpdateComponent plus(AutoUpdateModule autoUpdateModule);
 }

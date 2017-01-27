@@ -3,6 +3,7 @@
           package="com.caco3.producthunt">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +25,8 @@
         <activity android:name=".post.PostActivity"
             android:parentActivityName=".posts.PostsActivity"
             android:launchMode="singleTop" />
+        <service android:name=".autoupdate.CategoriesAndPostsUpdateService" />
+        <receiver android:name=".autoupdate.CategoriesAndPostsAutoUpdateAlarmReceiver" />
     </application>
 
 </manifest>

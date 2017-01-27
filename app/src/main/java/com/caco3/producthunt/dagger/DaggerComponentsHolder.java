@@ -6,6 +6,8 @@ import android.content.Context;
 import com.caco3.producthunt.ApplicationComponent;
 import com.caco3.producthunt.ApplicationModule;
 import com.caco3.producthunt.DaggerApplicationComponent;
+import com.caco3.producthunt.autoupdate.AutoUpdateComponent;
+import com.caco3.producthunt.autoupdate.AutoUpdateModule;
 import com.caco3.producthunt.categories.CategoriesComponent;
 import com.caco3.producthunt.categories.CategoriesModule;
 import com.caco3.producthunt.data.DataModule;
@@ -29,6 +31,7 @@ public class DaggerComponentsHolder {
   private CategoriesComponent categoriesComponent;
   private final Map<ProductHuntCategory, PostsComponent> postsComponents = new HashMap<>();
   private PostComponent postComponent;
+  private AutoUpdateComponent autoUpdateComponent;
 
   public static DaggerComponentsHolder getInstance() {
     return instance;
@@ -90,5 +93,17 @@ public class DaggerComponentsHolder {
 
   public void releasePostComponent() {
     postComponent = null;
+  }
+
+  public AutoUpdateComponent getAutoUpdateComponent() {
+    if (autoUpdateComponent == null) {
+      autoUpdateComponent = applicationComponent.plus(new AutoUpdateModule());
+    }
+
+    return autoUpdateComponent;
+  }
+
+  public void releaseAutoUpdateComponent() {
+    autoUpdateComponent = null;
   }
 }
