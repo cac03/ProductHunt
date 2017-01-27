@@ -114,8 +114,7 @@ public class CategoriesPresenterImpl implements CategoriesPresenter {
   }
 
   private void saveCategoriesToRepository(List<ProductHuntCategory> categories) {
-    repository.removeAll();
-    repository.saveAll(categories);
+    repository.replaceAllWith(categories);
   }
 
   private void updateLastTimeUpdate() {

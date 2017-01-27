@@ -89,16 +89,6 @@ public class CategoriesAndPostsUpdaterImpl implements CategoriesAndPostsUpdater 
   }
 
   private void replaceCategoriesInRepository(List<ProductHuntCategory> categories) {
-    List<ProductHuntCategory> oldCategories = categoriesRepository.listAll();
-    for(int i = 0; i < oldCategories.size(); i++) {
-      for(int j = 0; j < categories.size(); j++) {
-        if (oldCategories.get(i).getCategoryId() == categories.get(j).getCategoryId()) {
-          categories.get(j).setNotificationsEnabled(oldCategories.get(i).getNotificationsEnabled());
-        }
-      }
-    }
-
-    categoriesRepository.removeAll();
-    categoriesRepository.saveAll(categories);
+    categoriesRepository.replaceAllWith(categories);
   }
 }
