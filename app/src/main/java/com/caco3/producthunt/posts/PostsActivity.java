@@ -22,8 +22,10 @@ public class PostsActivity extends BaseActivity {
     setContentView(R.layout.activity_base);
     checkState(getIntent().hasExtra(EXTRA_CATEGORY_KEY),
             "No category provided. Did you use static forCategory method to start this activity?");
-
-    hostFragment();
+    ProductHuntCategory category = (ProductHuntCategory)getIntent()
+            .getSerializableExtra(EXTRA_CATEGORY_KEY);
+    hostFragment(category);
+    setTitle(category.getName());
   }
 
   public static Intent forCategory(Context context, ProductHuntCategory category) {
@@ -31,9 +33,7 @@ public class PostsActivity extends BaseActivity {
             .putExtra(EXTRA_CATEGORY_KEY, category);
   }
 
-  private void hostFragment() {
-    ProductHuntCategory category = (ProductHuntCategory)getIntent()
-            .getSerializableExtra(EXTRA_CATEGORY_KEY);
+  private void hostFragment(ProductHuntCategory category) {
     String tag = FRAGMENT_TAG_PREFIX + category.getName();
     Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
     if (fragment == null) {

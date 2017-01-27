@@ -16,6 +16,7 @@ public class CategoriesActivity extends BaseActivity {
     setContentView(R.layout.activity_base);
 
     hostFragment();
+    setTitle(R.string.categories_activity_title);
   }
 
   private void hostFragment() {
