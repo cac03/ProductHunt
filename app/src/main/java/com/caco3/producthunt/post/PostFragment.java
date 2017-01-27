@@ -94,6 +94,7 @@ public class PostFragment extends Fragment implements PostView {
     title.setText(post.getName());
     description.setText(post.getTagline());
     upvotesCount.setText(post.getVotesCount() + "");
+    getActivity().setTitle(post.getName());
   }
 
   @Override
