@@ -16,6 +16,7 @@
     <!-- post -->
     <string name="get_it_btn_label">Get it</string>
     <string name="post_screenshot_content_description">Screenshot</string>
+    <string name="unable_to_load_screenshot">Unable to load screenshot</string>
     
     <!-- new posts notifications -->
     <string name="x_new_posts">%1$d new posts</string>

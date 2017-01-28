@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.caco3.producthunt.R;
 import com.caco3.producthunt.dagger.DaggerComponentsHolder;
 import com.caco3.producthunt.producthunt.posts.ProductHuntPost;
 import com.caco3.producthunt.webview.WebViewActivity;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 import static com.caco3.producthunt.util.Preconditions.checkState;
 
@@ -34,6 +37,10 @@ public class PostFragment extends Fragment implements PostView {
   TextView description;
   @BindView(R.id.post_frag_post_votes_count)
   TextView upvotesCount;
+  @BindView(R.id.post_frag_progress_bar)
+  ProgressBar progressBar;
+  @BindView(R.id.post_frag_unable_to_load_screenshot_view)
+  TextView unableToLoadScreenshotView;
   @Inject
   PostPresenter presenter;
 
@@ -73,6 +80,8 @@ public class PostFragment extends Fragment implements PostView {
   @Override
   public void onDestroyView() {
     presenter.onViewDetached(this);
+    Picasso.with(getContext())
+            .cancelRequest(screenshot);
     super.onDestroyView();
   }
 
@@ -90,12 +99,43 @@ public class PostFragment extends Fragment implements PostView {
             .load(post.getScreenshot().getUrl850px())
             .centerCrop()
             .fit()
-            .into(screenshot);
+            .into(screenshot, new Callback() {
+              @Override
+              public void onSuccess() {
+                hideScreenshotLoadingError();
+                hideProgress();
+              }
+
+              @Override
+              public void onError() {
+                hideProgress();
+                showScreenshotLoadingError();
+              }
+            });
     title.setText(post.getName());
     description.setText(post.getTagline());
     upvotesCount.setText(post.getVotesCount() + "");
     getActivity().setTitle(post.getName());
   }
+
+  private void hideProgress() {
+    if (progressBar != null) {
+      progressBar.setVisibility(View.GONE);
+    }
+  }
+
+  private void showScreenshotLoadingError() {
+    if (unableToLoadScreenshotView != null) {
+      unableToLoadScreenshotView.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void hideScreenshotLoadingError() {
+    if (unableToLoadScreenshotView != null) {
+      unableToLoadScreenshotView.setVisibility(View.GONE);
+    }
+  }
+
 
   @Override
   public void openPostProductSite(ProductHuntPost post) {

@@ -5,6 +5,22 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <ProgressBar
+        android:id="@+id/post_frag_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/post_frag_unable_to_load_screenshot_view"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unable_to_load_screenshot"/>
+
     <ImageView
         android:id="@+id/post_frag_screenshot"
         android:contentDescription="@string/post_screenshot_content_description"
