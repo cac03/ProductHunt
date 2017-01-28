@@ -3,6 +3,7 @@ package com.caco3.producthunt.autoupdate.categoriesandposts;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
 
@@ -40,7 +41,7 @@ public class CategoryPostsUpdatedNotificationListener implements CategoryPostsUp
             .setContentText(makeContentString(newPosts))
             .setSmallIcon(SMALL_ICON_ID)
             .setContentIntent(PendingIntent
-                    .getActivity(context, 0, PostsActivity.forCategory(context, category), 0)));
+                    .getActivity(context, (int)category.getCategoryId(), PostsActivity.forCategory(context, category), 0)));
   }
 
   private void fireNotification(ProductHuntCategory category, NotificationCompat.Builder builder) {
