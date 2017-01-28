@@ -19,7 +19,7 @@ import static com.caco3.producthunt.util.Preconditions.checkNotNull;
 
 public class CategoryPostsUpdatedNotificationListener implements CategoryPostsUpdatedListener {
   @DrawableRes
-  private static final int SMALL_ICON_ID = R.mipmap.ic_launcher;
+  private static final int SMALL_ICON_ID = R.drawable.ic_notification;
 
   private final NotificationManager notificationManager;
   private final Context context;
