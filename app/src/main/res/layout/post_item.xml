@@ -6,16 +6,29 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-    <ImageView
-        android:id="@+id/post_item_thumbnail"
-        android:contentDescription="@string/post_thumbnail_content_description"
-        android:layout_width="@dimen/post_item_thumbnail_width"
-        android:layout_height="@dimen/post_item_thumbnail_height"
-        android:layout_centerVertical="true"
-        tools:src="@color/colorPrimaryDark"/>
+    <RelativeLayout
+        android:id="@+id/post_item_thumbnail_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true">
+        <ProgressBar
+            android:id="@+id/post_item_thumbnail_progress_bar"
+            android:padding="@dimen/default_padding"
+            android:layout_width="@dimen/post_item_thumbnail_width"
+            android:layout_height="@dimen/post_item_thumbnail_height"
+            tools:src="@color/colorPrimaryDark"/>
+
+        <ImageView
+            android:id="@+id/post_item_thumbnail"
+            android:contentDescription="@string/post_thumbnail_content_description"
+            android:layout_width="@dimen/post_item_thumbnail_width"
+            android:layout_height="@dimen/post_item_thumbnail_height"
+            tools:src="@color/colorPrimaryDark"/>
+    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_toEndOf="@id/post_item_thumbnail"
+        android:layout_toEndOf="@id/post_item_thumbnail_wrapper"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

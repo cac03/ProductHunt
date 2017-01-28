@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.caco3.producthunt.R;
 import com.caco3.producthunt.producthunt.posts.ProductHuntPost;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -20,6 +22,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static com.caco3.producthunt.util.Preconditions.checkNotNull;
 
@@ -117,6 +120,12 @@ class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
   }
 
   @Override
+  public void onViewRecycled(PostViewHolder holder) {
+    super.onViewRecycled(holder);
+    holder.onViewRecycled();
+  }
+
+  @Override
   public int getItemCount() {
     return items.size();
   }
@@ -130,6 +139,8 @@ class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
     TextView votesCount;
     @BindView(R.id.post_item_tagline)
     TextView tagline;
+    @BindView(R.id.post_item_thumbnail_progress_bar)
+    ProgressBar thumbnailProgressBar;
 
     PostViewHolder(View itemView) {
       super(itemView);
@@ -140,17 +151,38 @@ class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
       name.setText(post.getName());
       votesCount.setText(String.format(Locale.getDefault(), "%d", post.getVotesCount()));
       tagline.setText(post.getTagline());
+      thumbnailProgressBar.setVisibility(View.VISIBLE);
       Picasso.with(context)
               .load(post.getThumbnail().getImageUrl())
               .centerCrop()
               .fit()
-              .into(thumbnail);
+              .error(R.drawable.ic_warning)
+              .into(thumbnail, new Callback() {
+                @Override
+                public void onSuccess() {
+                  if (thumbnailProgressBar != null) {
+                    thumbnailProgressBar.setVisibility(View.GONE);
+                  }
+                }
+
+                @Override
+                public void onError() {
+                  if (thumbnailProgressBar != null) {
+                    thumbnailProgressBar.setVisibility(View.GONE);
+                  }
+                }
+              });
       itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           listener.onPostClicked(post);
         }
       });
+    }
+
+    void onViewRecycled() {
+      Picasso.with(context)
+              .cancelRequest(thumbnail);
     }
   }
 }
