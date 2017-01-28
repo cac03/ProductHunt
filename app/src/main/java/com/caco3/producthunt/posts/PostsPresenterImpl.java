@@ -100,8 +100,7 @@ class PostsPresenterImpl implements PostsPresenter {
       @Override
       public List<ProductHuntPost> call() throws Exception {
         List<ProductHuntPost> posts = productHunt.posts().getTodayPosts(category);
-        postsRepository.removeAllByCategory(category);
-        postsRepository.saveAll(posts);
+        postsRepository.replaceAllInCategoryWith(category, posts);
 
         return posts;
       }

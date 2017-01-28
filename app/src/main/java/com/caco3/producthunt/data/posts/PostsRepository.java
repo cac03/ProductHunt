@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostsRepository extends BaseRepository<ProductHuntPost> {
   List<ProductHuntPost> listAllByCategory(ProductHuntCategory category);
   void removeAllByCategory(ProductHuntCategory category);
+  void replaceAllInCategoryWith(ProductHuntCategory category, Iterable<ProductHuntPost> posts);
 }

@@ -84,8 +84,7 @@ public class CategoriesAndPostsUpdaterImpl implements CategoriesAndPostsUpdater 
   }
 
   private void replacePostsInRepository(ProductHuntCategory category, List<ProductHuntPost> posts) {
-    postsRepository.removeAllByCategory(category);
-    postsRepository.saveAll(posts);
+    postsRepository.replaceAllInCategoryWith(category, posts);
   }
 
   private void replaceCategoriesInRepository(List<ProductHuntCategory> categories) {
