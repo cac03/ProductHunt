@@ -20,12 +20,23 @@ public class PostsActivity extends BaseActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_base);
-    checkState(getIntent().hasExtra(EXTRA_CATEGORY_KEY),
-            "No category provided. Did you use static forCategory method to start this activity?");
-    ProductHuntCategory category = (ProductHuntCategory)getIntent()
-            .getSerializableExtra(EXTRA_CATEGORY_KEY);
+    showPostsForCategory();
+  }
+
+  private void showPostsForCategory() {
+    Intent intent = getIntent();
+    ensureIntentHasProductHuntCategoryExtra(intent);
+    ProductHuntCategory category = extractProductHuntCategory(intent);
     hostFragment(category);
     setTitle(category.getName());
+  }
+
+  private void ensureIntentHasProductHuntCategoryExtra(Intent intent) {
+    checkState(intent.hasExtra(EXTRA_CATEGORY_KEY), "No category provided");
+  }
+
+  private ProductHuntCategory extractProductHuntCategory(Intent intent) {
+    return (ProductHuntCategory) intent.getSerializableExtra(EXTRA_CATEGORY_KEY);
   }
 
   public static Intent forCategory(Context context, ProductHuntCategory category) {
@@ -44,6 +55,21 @@ public class PostsActivity extends BaseActivity {
             .replace(R.id.activity_base_fragment_container, fragment, tag)
             .commitNow();
   }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    if (isDisplayingPostsForNewCategoryRequested(intent)) {
+      setIntent(intent);
+      showPostsForCategory();
+    }
+  }
+
+  private boolean isDisplayingPostsForNewCategoryRequested(Intent intent) {
+    return intent.hasExtra(EXTRA_CATEGORY_KEY);
+  }
+
+
 
   @Override
   protected boolean hasParentActivity() {
