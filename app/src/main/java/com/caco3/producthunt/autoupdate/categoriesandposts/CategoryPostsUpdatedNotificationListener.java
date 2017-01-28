@@ -40,6 +40,7 @@ public class CategoryPostsUpdatedNotificationListener implements CategoryPostsUp
             .setContentTitle(makeTitleString(category))
             .setContentText(makeContentString(newPosts))
             .setSmallIcon(SMALL_ICON_ID)
+            .setAutoCancel(true)
             .setContentIntent(PendingIntent
                     .getActivity(context, (int)category.getCategoryId(), PostsActivity.forCategory(context, category), 0)));
   }
