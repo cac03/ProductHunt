@@ -74,20 +74,20 @@ public class PostsPresenterImplTest {
   }
 
   @Test
-  public void postsLoaded_postsSavedToRepository() throws Exception {
+  public void postsLoaded_postsInRepositoryReplacedWithNewOnes() throws Exception {
     List<ProductHuntPost> posts = productHuntPostsGenerator.generateList(10);
     when(postsService.getTodayPosts(dummyCategory)).thenReturn(posts);
-    final AtomicBoolean postsSaved = new AtomicBoolean();
+    final AtomicBoolean postsReplaced = new AtomicBoolean();
     doAnswer(new Answer() {
       @Override
       public Object answer(InvocationOnMock invocation) throws Throwable {
-        postsSaved.set(true);
+        postsReplaced.set(true);
         return null;
       }
-    }).when(postsRepository).saveAll(posts);
+    }).when(postsRepository).replaceAllInCategoryWith(dummyCategory, posts);
     presenter.onRefreshRequest();
 
-    assertThat(postsSaved.get())
+    assertThat(postsReplaced.get())
             .isTrue();
   }
 
