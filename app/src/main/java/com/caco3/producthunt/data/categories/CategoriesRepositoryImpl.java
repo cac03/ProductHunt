@@ -3,6 +3,7 @@ package com.caco3.producthunt.data.categories;
 
 import com.caco3.producthunt.producthunt.category.ProductHuntCategory;
 import com.caco3.producthunt.producthunt.category.ProductHuntCategoryDao;
+import com.caco3.producthunt.util.Iterables;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,35 +71,64 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
     List<ProductHuntCategory> old
             = dao.queryBuilder().orderAsc(ProductHuntCategoryDao.Properties.CategoryId)
             .build().list();
-    List<ProductHuntCategory> newEntities;
-    if (entities instanceof List) {
-      newEntities = (List<ProductHuntCategory>)entities;
-    } else {
-      newEntities = new ArrayList<>();
-      for(ProductHuntCategory category : entities) {
-        newEntities.add(category);
-      }
-    }
+    List<ProductHuntCategory> newEntities = Iterables.toArrayList(entities);
     Collections.sort(newEntities, comparatoryByCategoryId);
+
+    removeAll(extractToRemove(old, newEntities));
+    updateAll(extractToUpdate(old, newEntities));
+    saveAll(extractToSave(old, newEntities));
+  }
+
+  private List<ProductHuntCategory> extractToRemove(List<ProductHuntCategory> oldEntities,
+                                                    List<ProductHuntCategory> newEntities) {
     List<ProductHuntCategory> toRemove = new ArrayList<>();
-    List<ProductHuntCategory> toUpdate = new ArrayList<>();
-    for(ProductHuntCategory oldEntity : old) {
+    for(ProductHuntCategory oldEntity : oldEntities) {
       int index = Collections.binarySearch(newEntities, oldEntity, comparatoryByCategoryId);
       boolean found = index >= 0;
-      if (found) {
-        toUpdate.add(update(oldEntity, newEntities.get(index)));
-      } else {
+      if (!found) {
         toRemove.add(oldEntity);
       }
     }
 
-    removeAll(toRemove);
-    updateAll(toUpdate);
+    return toRemove;
   }
 
-  private ProductHuntCategory update(ProductHuntCategory oldEntity, ProductHuntCategory newEntity) {
-    newEntity.setNotificationsEnabled(oldEntity.getNotificationsEnabled());
-    newEntity.setId(oldEntity.getId());
-    return newEntity;
+  private List<ProductHuntCategory> extractToUpdate(List<ProductHuntCategory> oldEntities,
+                                                    List<ProductHuntCategory> newEntities) {
+    List<ProductHuntCategory> toUpdate = new ArrayList<>();
+    for(ProductHuntCategory oldEntity : oldEntities) {
+      int index = Collections.binarySearch(newEntities, oldEntity, comparatoryByCategoryId);
+      boolean found = index >= 0;
+      if (found) {
+        toUpdate.add(updateOldEntityWithNewData(oldEntity, newEntities.get(index)));
+      }
+    }
+
+    return toUpdate;
+  }
+
+  private ProductHuntCategory updateOldEntityWithNewData(ProductHuntCategory oldEntity,
+                                                         ProductHuntCategory newEntity) {
+    oldEntity.setSlug(newEntity.getSlug());
+    oldEntity.setColor(newEntity.getColor());
+    oldEntity.setItemName(newEntity.getItemName());
+    oldEntity.setName(newEntity.getName());
+    oldEntity.setCategoryId(newEntity.getCategoryId());
+
+    return oldEntity;
+  }
+
+  private List<ProductHuntCategory> extractToSave(List<ProductHuntCategory> oldEntities,
+                                                  List<ProductHuntCategory> newEntities) {
+    List<ProductHuntCategory> toSave = new ArrayList<>();
+    for(ProductHuntCategory newCategory : newEntities) {
+      int index = Collections.binarySearch(oldEntities, newCategory, comparatoryByCategoryId);
+      boolean found = index >= 0;
+      if (!found) {
+        toSave.add(newCategory);
+      }
+    }
+
+    return toSave;
   }
 }
