@@ -13,7 +13,7 @@ import com.caco3.producthunt.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
   @Nullable
   @BindView(R.id.toolbar)
   Toolbar toolbar;
