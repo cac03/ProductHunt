@@ -100,22 +100,19 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
       int index = Collections.binarySearch(newEntities, oldEntity, comparatoryByCategoryId);
       boolean found = index >= 0;
       if (found) {
-        toUpdate.add(updateOldEntityWithNewData(oldEntity, newEntities.get(index)));
+        toUpdate.add(fillNewEntity(oldEntity, newEntities.get(index)));
       }
     }
 
     return toUpdate;
   }
 
-  private ProductHuntCategory updateOldEntityWithNewData(ProductHuntCategory oldEntity,
-                                                         ProductHuntCategory newEntity) {
-    oldEntity.setSlug(newEntity.getSlug());
-    oldEntity.setColor(newEntity.getColor());
-    oldEntity.setItemName(newEntity.getItemName());
-    oldEntity.setName(newEntity.getName());
-    oldEntity.setCategoryId(newEntity.getCategoryId());
+  private ProductHuntCategory fillNewEntity(ProductHuntCategory oldEntity,
+                                            ProductHuntCategory newEntity) {
+    newEntity.setId(oldEntity.getId());
+    newEntity.setNotificationsEnabled(oldEntity.getNotificationsEnabled());
 
-    return oldEntity;
+    return newEntity;
   }
 
   private List<ProductHuntCategory> extractToSave(List<ProductHuntCategory> oldEntities,
