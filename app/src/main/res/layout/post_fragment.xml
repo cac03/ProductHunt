@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/post_frag_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ProgressBar
-        android:id="@+id/post_frag_progress_bar"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_above="@+id/post_frag_post_info_wrapper">
 
-    <TextView
-        android:id="@+id/post_frag_unable_to_load_screenshot_view"
-        android:visibility="gone"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/unable_to_load_screenshot"/>
+        <ProgressBar
+            android:id="@+id/post_frag_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
-    <ImageView
-        android:id="@+id/post_frag_screenshot"
-        android:contentDescription="@string/post_screenshot_content_description"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:src="@color/colorPrimaryDark"/>
+        <TextView
+            android:id="@+id/post_frag_unable_to_load_screenshot_view"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unable_to_load_screenshot"/>
+
+        <ImageView
+            android:id="@+id/post_frag_screenshot"
+            android:contentDescription="@string/post_screenshot_content_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@color/colorPrimaryDark"/>
+    </RelativeLayout>
     <LinearLayout
+        android:id="@id/post_frag_post_info_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/default_padding"
